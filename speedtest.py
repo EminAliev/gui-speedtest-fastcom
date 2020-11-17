@@ -38,7 +38,7 @@ class SpeedTestObject(object):
             connection.connect()
             return connection
         except:
-            raise Exception('Unable to connect to %r' % url)
+            pass
 
     def get_servers(self):
         with Session() as s:
@@ -71,7 +71,7 @@ class SpeedTestObject(object):
             if current_ping > lowest:
                 lowest = current_ping
         seconds.remove(lowest)
-        current_ping = sum(seconds) * 1000 / 4  # * 1000 / number of tries (4) = 250
+        current_ping = sum(seconds) * 1000 / 4
         connect.close()
         return current_ping
 

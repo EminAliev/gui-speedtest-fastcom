@@ -32,7 +32,7 @@ def speed():
     f = tk.Label(top, bg="#040837")
     f.grid(row=0)
 
-    dl = tk.Label(top, text=" Download Speed : ---- MBPS ", width=28)
+    dl = tk.Label(top, text=" Download Speed : --- MBPS ", width=28)
     dl.grid(row=2, column=0, pady=22)
     dl.config(font=("Courier", 17, "bold"), bg="#124576", fg="white")
 
@@ -59,7 +59,7 @@ def ping():
     f = tk.Label(top, bg="#040837")
     f.grid(row=0)
 
-    dl = tk.Label(top, text=" Ping : ---- ms ", width=28)
+    dl = tk.Label(top, text=" Ping : --- ms ", width=28)
     dl.grid(row=2, column=0, pady=22)
     dl.config(font=("Courier", 17, "bold"), bg="#124576", fg="white")
 
