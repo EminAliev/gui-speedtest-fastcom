@@ -22,6 +22,10 @@ class FastCom(object):
                     result += len(chunk)
         return result
 
+    async def create_session(self):
+        return aiohttp.ClientSession()
+
+
     def script_find_text(self, text, start, finish):
         start_f = text.find(start)
         start_l = len(start)
@@ -42,7 +46,7 @@ class FastCom(object):
         token = self.script_find_text(script_response, 'token:"', '"')
         return token
 
-    def download(self, token='', timeout=40.0):
+    def download(self, token='', timeout=None):
         event_loop = asyncio.new_event_loop()
         asyncio.set_event_loop(event_loop)
         token = token or self.get_token()
@@ -58,15 +62,15 @@ class FastCom(object):
         response = request_file.read().decode()
         response_json = json.loads(response)
         start = time.time()
-        session = aiohttp.ClientSession()
-        urls_param = [self.test_speed(session, url['url']) for url in response_json]
-        futures = asyncio.gather(*urls_param)
-        try:
-            event_loop.run_until_complete(asyncio.wait_for(futures, timeout=timeout))
-        except asyncio.TimeoutError:
-            event_loop.run_until_complete(futures)
-        finally:
-            event_loop.close()
+        with aiohttp.ClientSession() as session:
+            urls_param = [self.test_speed(session, url['url']) for url in response_json]
+            futures = asyncio.gather(*urls_param)
+            try:
+                event_loop.run_until_complete(asyncio.wait_for(futures, timeout=timeout))
+            except asyncio.TimeoutError:
+                event_loop.run_until_complete(futures)
+            finally:
+                event_loop.close()
         end = time.time()
         speed_const = sum(futures.result()) * 8 / 1024 / 1024
         return round(speed_const / (end - start), 1)
@@ -77,5 +81,5 @@ if __name__ == '__main__':
     print('Start')
     print('Token: ' + fc.get_token())
     print('Download Speed: ')
-    x = round(fc.download(timeout=45), 2)
+    x = round(fc.download(), 2)
     print(str(x) + 'MB/s')
