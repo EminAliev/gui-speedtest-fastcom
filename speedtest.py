@@ -1,4 +1,5 @@
 import os
+import re
 import timeit
 from http.client import HTTPConnection
 from math import sqrt, radians, sin, cos, asin
@@ -29,7 +30,7 @@ class SpeedTestObject(object):
     @property
     def server(self):
         if not self._server:
-            self._server = self.get_best()[0]['url']
+            self._server = self.get_address_ping(self.get_best())
         return self._server
 
     @server.setter
@@ -110,6 +111,10 @@ class SpeedTestObject(object):
             latency_now /= 2
             if latency_now == -1 or latency_now == 0:
                 continue
+            print("%0.0f ms TO %s (%s, %s) [%0.2f kylometers]" %
+                  (
+                      latency_now, server['url'], server['name'], server['country'],
+                      server['distance']))
             server['latency'] = latency_now
             # 5 servers with latency
             if int(len(list_servers)) < int(5):
@@ -144,6 +149,14 @@ class SpeedTestObject(object):
             if all == 0:
                 return False
         return average / all
+
+    def get_address_ping(self, list):
+        servers = []
+        for server in list:
+            match = re.search(r'http://([^/]+)/speedtest/', server['url'])
+            server_host = match.groups()[0]
+            servers.append(server_host)
+        return servers[0]
 
     def get_best(self):
         """Get list best servers"""
@@ -204,6 +217,11 @@ class SpeedTestObject(object):
         return max(all_speed)
 
 
+def cli() -> None:
+    s = SpeedTestObject()
+    speed = s.download()
+    print("Download speed: " + (str(speed)))
+
+
 if __name__ == "__main__":
-    speed = SpeedTestObject()
-    print(speed.download())
+    cli()

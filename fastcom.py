@@ -42,13 +42,13 @@ class FastCom(object):
         token = self.script_find_text(script_response, 'token:"', '"')
         return token
 
-    def download(self, token='', timeout=15.0):
+    def download(self, token='', timeout=40.0):
         event_loop = asyncio.new_event_loop()
         asyncio.set_event_loop(event_loop)
         token = token or self.get_token()
         api_params = {
             'https': True,
-            'urlCount': 3,
+            'urlCount': 5,
             'token': token
         }
         query = urllib.parse.urlencode({i: str(j) for i, j in api_params.items()})
@@ -70,3 +70,12 @@ class FastCom(object):
         end = time.time()
         speed_const = sum(futures.result()) * 8 / 1024 / 1024
         return round(speed_const / (end - start), 1)
+
+
+if __name__ == '__main__':
+    fc = FastCom()
+    print('Start')
+    print('Token: ' + fc.get_token())
+    print('Download Speed: ')
+    x = round(fc.download(timeout=45), 2)
+    print(str(x) + 'MB/s')
