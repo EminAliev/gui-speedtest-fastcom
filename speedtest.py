@@ -1,3 +1,4 @@
+import bisect
 import os
 import re
 import timeit
@@ -45,6 +46,14 @@ class SpeedTestObject(object):
             return connection
         except:
             pass
+
+    def get_address_ping(self, list):
+        servers = []
+        for server in list:
+            match = re.search(r'http://([^/]+)/speedtest/', server['url'])
+            server_host = match.groups()[0]
+            servers.append(server_host)
+        return servers[0]
 
     def ping(self, server=None):
         """Ping server"""
@@ -150,13 +159,6 @@ class SpeedTestObject(object):
                 return False
         return average / all
 
-    def get_address_ping(self, list):
-        servers = []
-        for server in list:
-            match = re.search(r'http://([^/]+)/speedtest/', server['url'])
-            server_host = match.groups()[0]
-            servers.append(server_host)
-        return servers[0]
 
     def get_best(self):
         """Get list best servers"""
@@ -215,6 +217,40 @@ class SpeedTestObject(object):
             speed = str(str((float(duration.split(',')[0]) / 1024 / 1024) * 1.048576 * 8)) + "MB/s"
             all_speed.append(speed + "MB/s")
         return max(all_speed)
+
+    def upload(self):
+        """Upload speed test"""
+        uploads_speed = []
+        url = "upload.php"
+        all_url = self.get_best()[0]['url'] + url
+        files = [filename for filename in os.listdir('.') if filename.startswith("random3")]
+        filename = files[0]
+        for i in range(0, len(self.DOWNLOAD_FILES)):
+            all_url = self.get_best()[i]['url'] + url
+            duration_echo = str(
+                'echo "scale=2; `curl -m 30 -w "%{speed_upload}" --data-binary @' + filename + ' ' + all_url + '`"')
+            duration = os.popen(duration_echo).read()
+            if 'unavailable.' in str(duration):
+                continue
+            if 'Too Large' in str(duration):
+                print('Bad server')
+            else:
+                if 'size=500' in str(duration):
+                    speed = str(str(round(
+                        (float(duration.strip().split('size=500')[-1].split(',')[0]) / 1024 / 1024) * 1.048576 * 8,
+                        2))) + "MB/s"
+                    uploads_speed.append(speed)
+                elif 'size=' not in str(duration):
+                    speed = str(str(
+                        round((float(duration.strip().split(' ')[1].split(',')[0]) / 1024 / 1024) * 1.048576 * 8,
+                              2))) + "MB/s"
+                    uploads_speed.append(speed)
+                elif 'size=' in str(duration):
+                    speed = str(str(
+                        round((int(duration.strip().split('size=')[-1].split(',')[0][9:]) / 1024 / 1024) * 1.048576 * 8,
+                              2))) + "MB/s"
+                    uploads_speed.append(speed)
+        return max(uploads_speed)
 
 
 def cli() -> None:
