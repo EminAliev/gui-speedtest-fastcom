@@ -1,7 +1,5 @@
-import bisect
 import os
 import re
-import timeit
 from http.client import HTTPConnection
 from math import sqrt, radians, sin, cos, asin
 from xml import etree
@@ -57,27 +55,7 @@ class SpeedTestObject(object):
 
     def ping(self, server=None):
         """Ping server"""
-        if not server:
-            server = self.server
-        connect = self.client_connection(server)
-        seconds = []
-        lowest = 0
-        stamp = int(timeit.time.time() * 1000)
-        for _ in range(5):
-            start = time.time()
-            connect.request('GET',
-                            '/speedtest/latency.txt?x=%d' % stamp, None,
-                            {'Connection': 'Keep-Alive'})
-            response = connect.getresponse()
-            response.read()
-            current_ping = time.time() - start
-            seconds.append(current_ping)
-            if current_ping > lowest:
-                lowest = current_ping
-        seconds.remove(lowest)
-        current_ping = sum(seconds) * 1000 / 4
-        connect.close()
-        return current_ping
+        return self.get_best()[0]['latency']
 
     def distance(self, lon1, lat1, lon2, lat2):
         """Calculating the distance between server and client"""
@@ -158,7 +136,6 @@ class SpeedTestObject(object):
             if all == 0:
                 return False
         return average / all
-
 
     def get_best(self):
         """Get list best servers"""
@@ -255,8 +232,9 @@ class SpeedTestObject(object):
 
 def cli() -> None:
     s = SpeedTestObject()
-    speed = s.download()
-    print("Download speed: " + (str(speed)))
+    print(s.ping())
+    print(s.download())
+    print(s.upload())
 
 
 if __name__ == "__main__":
