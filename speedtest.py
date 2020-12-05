@@ -55,7 +55,7 @@ class SpeedTestObject(object):
 
     def ping(self, server=None):
         """Ping server"""
-        return self.get_best()[0]['latency']
+        return round(self.get_best()[0]['latency'])
 
     def distance(self, lon1, lat1, lon2, lat2):
         """Calculating the distance between server and client"""
@@ -179,7 +179,7 @@ class SpeedTestObject(object):
             all_url = best_server[i]['url'] + url
             # measuring connection duration
             duration = os.popen('curl -m 60 -w "%{speed_download}" -O ' + all_url).read()
-            speed = str(str((float(duration.split(',')[0]) / 1024 / 1024) * 1.048576 * 8)) + "MB/s"
+            speed = str(str(round((float(duration.split(',')[0]) / 1024 / 1024) * 1.048576 * 8, 2)))
             all_speed.append(speed + "MB/s")
             try:
                 os.remove(url)
@@ -191,8 +191,8 @@ class SpeedTestObject(object):
             pass
         else:
             duration = os.popen('curl -m 90 -w "%{speed_download}" -O ' + all_url).read()
-            speed = str(str((float(duration.split(',')[0]) / 1024 / 1024) * 1.048576 * 8)) + "MB/s"
-            all_speed.append(speed + "MB/s")
+            speed = str(str(round((float(duration.split(',')[0]) / 1024 / 1024) * 1.048576 * 8, 2)))
+            all_speed.append(speed+ "MB/s")
         return max(all_speed)
 
     def upload(self):
@@ -232,9 +232,7 @@ class SpeedTestObject(object):
 
 def cli() -> None:
     s = SpeedTestObject()
-    print(s.ping())
     print(s.download())
-    print(s.upload())
 
 
 if __name__ == "__main__":
