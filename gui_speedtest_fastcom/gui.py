@@ -1,7 +1,7 @@
 import threading
 import tkinter as tk
 
-from application import fastcom, speedtest
+from gui_speedtest_fastcom import speedtest, fastcom
 
 download = 0
 upload = 0

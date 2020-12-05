@@ -200,7 +200,7 @@ class SpeedTestObject(object):
         uploads_speed = []
         url = "upload.php"
         all_url = self.get_best()[0]['url'] + url
-        files = [filename for filename in os.listdir(os.path.abspath('.')) if filename.startswith("random3")]
+        files = [filename for filename in os.listdir(os.path.abspath('')) if filename.startswith("random3")]
         filename = files[0]
         for i in range(0, len(self.DOWNLOAD_FILES)):
             all_url = self.get_best()[i]['url'] + url
