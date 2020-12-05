@@ -79,7 +79,6 @@ class FastCom(object):
 if __name__ == '__main__':
     fc = FastCom()
     print('Start')
-    print('Token: ' + fc.get_token())
     print('Download Speed: ')
     x = round(fc.download(), 2)
     print(str(x) + 'MB/s')

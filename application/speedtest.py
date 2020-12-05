@@ -200,7 +200,7 @@ class SpeedTestObject(object):
         uploads_speed = []
         url = "upload.php"
         all_url = self.get_best()[0]['url'] + url
-        files = [filename for filename in os.listdir('.') if filename.startswith("random3")]
+        files = [filename for filename in os.listdir(os.path.abspath('.')) if filename.startswith("random3")]
         filename = files[0]
         for i in range(0, len(self.DOWNLOAD_FILES)):
             all_url = self.get_best()[i]['url'] + url
@@ -224,7 +224,7 @@ class SpeedTestObject(object):
                     uploads_speed.append(speed)
                 elif 'size=' in str(duration):
                     speed = str(str(
-                        round((int(duration.strip().split('size=')[-1].split(',')[0][9:]) / 1024 / 1024) * 1.048576 * 8,
+                        round((float(duration.strip().split('size=')[-1].split(',')[0][9:]) / 1024 / 1024) * 1.048576 * 8,
                               2))) + "MB/s"
                     uploads_speed.append(speed)
         return max(uploads_speed)
@@ -233,6 +233,7 @@ class SpeedTestObject(object):
 def cli() -> None:
     s = SpeedTestObject()
     print(s.download())
+    print(s.upload())
 
 
 if __name__ == "__main__":
