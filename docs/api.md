@@ -11,7 +11,7 @@ s.download()
 s.upload()
 ```
 
-#Example for fast:
+## Example for fast:
 ```python
 from gui_speedtest_fastcom import fastcom
 
