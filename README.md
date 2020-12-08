@@ -33,4 +33,3 @@ Available functions: <br/>
 Click on the resource you are interested in and it starts calculating Internet speed indicators
 
 
-
