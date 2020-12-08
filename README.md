@@ -30,7 +30,7 @@ Available functions: <br/>
 ```
 ### 3. exe:
 
-#Usage
+# Usage
 <img src="https://i.ibb.co/6b9RBF3/1.png" style="float: right;margin: 0 0 5px 5px;" alt="sd">
 <img src="https://i.ibb.co/bQMQ8P7/223.png" style="float: right;margin: 0 0 5px 5px;" alt="sd">
 
