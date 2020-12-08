@@ -41,4 +41,7 @@ Available functions: <br/>
 
 Click on the resource you are interested in and it starts calculating Internet speed indicators
 
+# Also
+[I'm an inline-style link with title](https://github.com/EminAliev/gui-speedtest-fastcom/blob/main/docs/api.md "Documentaion for API")
+
 
