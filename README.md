@@ -17,7 +17,7 @@ Available functions: <br/>
  * Upload speed from Speedtest.net
  * Ping from Speedtest.net
  * Download speed from fast.com
- #Versions
+ # Versions
  gui-speedtest-fastcom works with Python 3.1-3.7
  
 # Getting started
