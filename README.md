@@ -1,9 +1,15 @@
 <img src="https://cdn.worldvectorlogo.com/logos/speedtest.svg" height="120" style="float: right;margin: 0 0 5px 5px;" alt="sd">
 
 # gui-speedtest-fastcom
-<p style="display:inline-block; width:50px"><img src="https://i.imgur.com/HIRQAnY.png" height="20" style="display: block">
-<p style="display:inline-block; width:50px"><img src="https://i.imgur.com/vaY5qo6.png" height="20" style="display:block;">
-<p style="display:inline-block; width:50px"><img src="https://camo.githubusercontent.com/04368c98c757402ea44603ae5e958eb96e5ccbb88b2cdfde069be7a3e2f5a93a/68747470733a2f2f696d672e736869656c64732e696f2f707970692f762f7370656564746573742d636c692e737667" width="98" height="20" style="display:block;">
+<section style="margin: 0;
+  padding: 0; overflow:hidden;">
+  <div style="margin: 0;
+  padding: 0;">
+    <img src="https://i.imgur.com/HIRQAnY.png" height="20" style="margin: 0;padding: 0;width:100%;">
+    <img src="https://i.imgur.com/vaY5qo6.png" height="20" style="margin: 0;padding: 0;width:100%;">
+    <img src="https://camo.githubusercontent.com/04368c98c757402ea44603ae5e958eb96e5ccbb88b2cdfde069be7a3e2f5a93a/68747470733a2f2f696d672e736869656c64732e696f2f707970692f762f7370656564746573742d636c692e737667" style="margin: 0;padding: 0; width: 100%" width="98" height="20">
+   </div>
+</section>
 
 Python GUI-tool to measure Internet speed with fast.com and speedtest.net. <br/>
 Available functions: <br/>
