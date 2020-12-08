@@ -17,11 +17,11 @@ Available functions: <br/>
  
 # Getting started
 ## Install
-###1. pip:
+### 1. pip:
 ```bash
     pip install gui-for-speedtest-fast==0.0.1
 ```
-###2. Github:
+### 2. Github:
 ```python
     git clone https://github.com/EminAliev/gui-speedtest-fastcom.git
     cd gui-speedtest-fastcom
