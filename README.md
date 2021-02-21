@@ -3,7 +3,7 @@
 # gui-speedtest-fastcom
 
 Python GUI-tool to measure Internet speed with fast.com and speedtest.net. <br/>
-Available functions: <br/>
+Available functions:  <br/>
  * Download speed from Speedtest.net
  * Upload speed from Speedtest.net
  * Ping from Speedtest.net
